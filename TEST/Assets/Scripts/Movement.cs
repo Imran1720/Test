@@ -20,6 +20,16 @@ public class Movement : MonoBehaviour
         PlayerMovement();
         SetAnimations();
         Jump();
+        Flip();
+        Attack();
+    }
+
+    private void Attack()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Debug.Log("Attacking");
+        }
     }
 
     private void SetAnimations()
@@ -47,4 +57,18 @@ public class Movement : MonoBehaviour
         rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
     }
 
+    public void Flip()
+    {
+        Vector2 localScale = transform.localScale;
+
+        if (rb.velocity.x < 0)
+        {
+            localScale.x = -1 * Mathf.Abs(localScale.x);
+        }
+        else if (rb.velocity.x > 0)
+        {
+            localScale.x = Mathf.Abs(localScale.x);
+        }
+        transform.localScale = localScale;
+    }
 }
