@@ -21,6 +21,15 @@ public class Movement : MonoBehaviour
         SetAnimations();
         Jump();
         Flip();
+        Attack();
+    }
+
+    private void Attack()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Debug.Log("Attacking");
+        }
     }
 
     private void SetAnimations()
