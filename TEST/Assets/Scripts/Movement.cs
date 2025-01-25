@@ -10,7 +10,7 @@ public class Movement : MonoBehaviour
     float xInput;
 
 
-    public GameObject target;
+    public GameObject detectionPoint;
     public float detectionDistance;
     public LayerMask whatIsGround;
     private void Update()
@@ -28,7 +28,7 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Debug.Log("Attacking");
+            animator.SetTrigger("Attack");
         }
     }
 
@@ -41,7 +41,7 @@ public class Movement : MonoBehaviour
 
     private bool GroundCheck()
     {
-        return Physics2D.Raycast(target.transform.position, Vector2.down, detectionDistance, whatIsGround);
+        return Physics2D.Raycast(detectionPoint.transform.position, Vector2.down, detectionDistance, whatIsGround);
     }
 
     private void Jump()
@@ -70,5 +70,12 @@ public class Movement : MonoBehaviour
             localScale.x = Mathf.Abs(localScale.x);
         }
         transform.localScale = localScale;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Vector3 direction = new Vector3(detectionPoint.transform.position.x, detectionPoint.transform.position.y - detectionDistance, detectionPoint.transform.position.z);
+        Gizmos.DrawLine(detectionPoint.transform.position, direction);
     }
 }
